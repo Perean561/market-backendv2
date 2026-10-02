@@ -3,6 +3,7 @@ package com.tecnm.merida.market_backendv2.persistence.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -29,4 +30,68 @@ public class Producto {
     private String cantidadStock;
 
     private Boolean estado;
+
+    @ManyToOne
+    @JoinColumn(name = "id_categoria",   insertable = false, updatable = false)
+    private Categoria categoria;
+
+    //Ojito
+    @OneToMany(mappedBy = "producto")
+    private List<CompraProducto> compraProductos;
+
+    public Integer getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(Integer idProducto) {
+        this.idProducto = idProducto;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getId_categoria() {
+        return id_categoria;
+    }
+
+    public void setId_categoria(String id_categoria) {
+        this.id_categoria = id_categoria;
+    }
+
+    public String getCodigoBarras() {
+        return codigoBarras;
+    }
+
+    public void setCodigoBarras(String codigoBarras) {
+        this.codigoBarras = codigoBarras;
+    }
+
+    public String getPrecioVenta() {
+        return precioVenta;
+    }
+
+    public void setPrecioVenta(String precioVenta) {
+        this.precioVenta = precioVenta;
+    }
+
+    public String getCantidadStock() {
+        return cantidadStock;
+    }
+
+    public void setCantidadStock(String cantidadStock) {
+        this.cantidadStock = cantidadStock;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
 }
