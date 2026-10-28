@@ -2,7 +2,7 @@ package com.tecnm.merida.market_backendv2.domain;
 
 public class Product {
 
-    private Integer productoId;
+    private Integer productId;
     private String name;
     private int categoryId;
     private double price;
@@ -10,12 +10,16 @@ public class Product {
     private boolean active;
     private Category category;
 
-    public Integer getProductoId() {
-        return productoId;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setProductoId(Integer productoId) {
-        this.productoId = productoId;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getName() {
@@ -26,11 +30,11 @@ public class Product {
         this.name = name;
     }
 
-    public int getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
