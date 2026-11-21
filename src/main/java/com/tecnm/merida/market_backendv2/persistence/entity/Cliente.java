@@ -1,31 +1,33 @@
 package com.tecnm.merida.market_backendv2.persistence.entity;
-
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.List;
 
+
 @Entity
-@Table(name = "clientes")
+@Table (name="clientes")
 public class Cliente {
 
     @Id
-    private Integer id;
+    private String id;
     private String nombre;
-    private String apellidos;
-    private String celular;
-    private String direccion;
+    @Column(name = "apellidos")
+    private String apellido;
+    private java.math.BigDecimal celular;
+    private String  direccion;
 
-    @OneToMany(mappedBy = "cliente")
-    private List<Compra> compras;
-
-    @Column(name = "correo_electronico")
+    @Column (name ="correo_electronico")
     private String correoElectronico;
 
-    public Integer getId() {
+    @OneToMany (mappedBy  = "cliente")
+    private List<Compra> compras;
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -37,19 +39,19 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    public String getApellidos() {
-        return apellidos;
+    public String getApellido() {
+        return apellido;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
-    public String getCelular() {
+    public java.math.BigDecimal getCelular() {
         return celular;
     }
 
-    public void setCelular(String celular) {
+    public void setCelular(java.math.BigDecimal celular) {
         this.celular = celular;
     }
 
@@ -65,10 +67,6 @@ public class Cliente {
         return correoElectronico;
     }
 
-    public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
-    }
-
     public List<Compra> getCompras() {
         return compras;
     }
@@ -76,4 +74,12 @@ public class Cliente {
     public void setCompras(List<Compra> compras) {
         this.compras = compras;
     }
+
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+
+
+
+    }
 }
+

@@ -1,5 +1,6 @@
 package com.tecnm.merida.market_backendv2.persistence.mapper;
 
+
 import com.tecnm.merida.market_backendv2.domain.Product;
 import com.tecnm.merida.market_backendv2.persistence.entity.Producto;
 import org.mapstruct.InheritInverseConfiguration;
@@ -9,23 +10,25 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {CategoryMapper.class})
+@Mapper (componentModel = "spring", uses = {CategoryMapper.class})
 public interface ProductMapper {
-    @Mappings({
+
+    @Mappings ({
             @Mapping(source = "idProducto", target = "productId"),
             @Mapping(source = "nombre", target = "name"),
-            @Mapping(source = "idCategoria", target = "categoryId"),
+            @Mapping(source = "codigoBarras", target = "barcode"),
             @Mapping(source = "precioVenta", target = "price"),
+            @Mapping(source = "idCategoria", target = "categoryId"),
             @Mapping(source = "cantidadStock", target = "stock"),
             @Mapping(source = "estado", target = "active"),
-            @Mapping(source = "categoria", target = "category"),
-
+            @Mapping(source = "categoria", target = "category")
 
     })
     Product toProduct(Producto producto);
     List<Product> toProducts(List<Producto> productos);
 
     @InheritInverseConfiguration
-    @Mapping(target = "codigoBarras", ignore = true)
+    @Mapping(target = "compraProductos", ignore = true)
+    @Mapping(target = "categoria", ignore = true)
     Producto toProducto(Product product);
 }

@@ -1,6 +1,5 @@
 package com.tecnm.merida.market_backendv2.persistence.mapper;
 
-import com.tecnm.merida.market_backendv2.domain.Purchase;
 import com.tecnm.merida.market_backendv2.domain.PurchaseItem;
 import com.tecnm.merida.market_backendv2.persistence.entity.CompraProducto;
 import org.mapstruct.InheritInverseConfiguration;

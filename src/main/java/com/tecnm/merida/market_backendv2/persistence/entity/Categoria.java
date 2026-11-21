@@ -1,22 +1,24 @@
 package com.tecnm.merida.market_backendv2.persistence.entity;
-
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.List.*;
 
 @Entity
-@Table(name = "categorias")
+@Table (name= "categorias")
+
 public class Categoria {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id_categoria")
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column (name ="id_categoria")
     private Integer idCategoria;
 
     private String descripcion;
 
     private Boolean estado;
-    @OneToMany(mappedBy = "categoria")
+
+    @OneToMany (mappedBy ="categoria")
     private List<Producto> productos;
 
     public Integer getIdCategoria() {

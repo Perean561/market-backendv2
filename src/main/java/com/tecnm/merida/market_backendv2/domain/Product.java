@@ -3,6 +3,7 @@ package com.tecnm.merida.market_backendv2.domain;
 public class Product {
 
     private Integer productId;
+    private String barcode;
     private String name;
     private int categoryId;
     private double price;
@@ -12,6 +13,14 @@ public class Product {
 
     public Integer getProductId() {
         return productId;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
     }
 
     public void setProductId(Integer productId) {

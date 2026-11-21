@@ -1,17 +1,26 @@
 package com.tecnm.merida.market_backendv2.domain.service;
 
 import com.tecnm.merida.market_backendv2.domain.Product;
+import com.tecnm.merida.market_backendv2.domain.repository.CategoryRepository;
 import com.tecnm.merida.market_backendv2.domain.repository.ProductRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional(readOnly = true)
 public class ProductService {
+    private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
-
-    private ProductRepository productRepository;
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
+        this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
+    }
 
     public List<Product> getAll() {
         return productRepository.getAll();
@@ -25,18 +34,37 @@ public class ProductService {
         return productRepository.getByCategory(categoryId);
     }
 
+    @Transactional
     public Product save(Product product) {
+        product.setProductId(null);
+        validate(product);
         return productRepository.save(product);
     }
-    public boolean delete(int productId) {
-        //Verificar que existe antes de borrar
-        if (getProduct(productId).isPresent()) {
-            productRepository.delete(productId);
-            return true;
-        }{
-            return false;
-        }
+
+    @Transactional
+    public Product update(int productId, Product product) {
+        getProduct(productId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producto no encontrado"));
+        product.setProductId(productId);
+        validate(product);
+        return productRepository.save(product);
     }
 
+    @Transactional
+    public boolean delete(int productId) {
+        if (getProduct(productId).isEmpty()) {
+            return false;
+        }
+        productRepository.delete(productId);
+        return true;
+    }
 
+    private void validate(Product product) {
+        if (product.getName() == null || product.getName().isBlank() || product.getCategoryId() == null
+                || !Double.isFinite(product.getPrice()) || product.getPrice() < 0 || product.getStock() < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nombre, categoria, precio y stock validos son obligatorios");
+        }
+        if (categoryRepository.getCategory(product.getCategoryId()).isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoria no encontrada");
+        }
+    }
 }
