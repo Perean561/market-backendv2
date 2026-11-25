@@ -16,6 +16,7 @@ public class Cliente {
     private String apellido;
     private java.math.BigDecimal celular;
     private String  direccion;
+    private String password;
 
     @Column (name ="correo_electronico")
     private String correoElectronico;
@@ -80,6 +81,14 @@ public class Cliente {
 
 
 
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
 
